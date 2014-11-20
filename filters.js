@@ -17,4 +17,16 @@ module.exports = function(swig) {
   };
   markedFilter.safe = true;
   swig.setFilter('marked', markedFilter);
+
+  var link = function (doc) {
+    var lname;
+    if (typeof doc.title !== "undefined" && doc.title !== "") {
+      lname = doc.title
+    } else {
+      lname = "Page "+doc.url_name;
+    }
+    return "<a href='/wiki/"+doc.url_name+"/"+doc.id+"'>"+lname+"</a>";
+  };
+  link.safe = true;
+  swig.setFilter('link',link);
 };

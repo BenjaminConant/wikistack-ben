@@ -5,12 +5,14 @@ var Page = require('../models/').Page;
 router.get('/:url', function(req,res){
   // res.send("hello")
   var postUrl = req.params.url;
-  // console.log(postUrl);
+  console.log(postUrl);
   Page.find({'url_name': postUrl}, function(err,data){
+
     if (err) return console.error(err);
     if (data.length===1) {
-    // console.log(data[0]['title']);
-    // console.log(data);
+    console.log(data[0]['title']);
+    console.log("This is what I am doing for 1 entry",data);
+    // res.send(data);
     res.render('show', {title: 'WIKISTACK', postTitle: data[0]['title'], postContent: data[0]['body'], url_name: data[0]['url_name']});
   } else {
     var i=0;
@@ -20,11 +22,17 @@ router.get('/:url', function(req,res){
       i++;
       console.log(data[keys]);
     }
-
-  res.render('index',{title: 'WIKISTACK', docs: data});
+  res.render('disamb',{title: 'WIKISTACK', docs: data});
   };
   })
 })
+router.get('/:url/:id',function(req,res){
+  Page.find({_id:req.params.id},function(err,data){
+    console.log("I'm in the id get",data)
+    res.render('show',{title:'WIKISTACK', postTitle: data[0]['title'], postContent: data[0]['body'], url_name: data[0]['url_name']});
+  });
+});
+
 router.post('/:url/edit',function(req,res){
   var postUrl = req.params.url;
   Page.find({'url_name': postUrl}, function(err,data){
