@@ -25,7 +25,7 @@ module.exports = function(swig) {
     } else {
       lname = "Page "+doc.url_name;
     }
-    return "<a href='/wiki/"+doc.url_name+"/"+doc.id+"'>"+lname+"</a>";
+    return "<a href='/wiki/"+doc.url_name+"/"+doc.id+"'>"+lname+"</a>"+"  -  " +doc.body.substring(0,30);
   };
   link.safe = true;
   swig.setFilter('link',link);
