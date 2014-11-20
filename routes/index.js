@@ -7,7 +7,7 @@ router.get('/', function(req, res) {
   Page.find({},function(err, data) {
 	 	console.log('----------------------',data)
 		if (err) return console.error(err);
-		res.render('index', { title: "wikiwikistackstack", docs: "data" });
+		res.render('index', { title: "wikiwikistackstack", docs: data });
 	 })
 });
 
